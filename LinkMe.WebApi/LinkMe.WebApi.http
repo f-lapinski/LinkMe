@@ -1,0 +1,6 @@
+@LinkMe.WebApi_HostAddress = http://localhost:5063
+
+GET {{LinkMe.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
