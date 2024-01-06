@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkMe.Infrastructure.Persistance
+namespace LinkMe.Infrastructure.Persistance 
 {
     public static class SqlDatabaseConfiguration
     {

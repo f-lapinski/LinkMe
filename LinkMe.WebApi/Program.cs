@@ -1,4 +1,6 @@
+using LinkMe.Application.Logic.Abstractions;
 using LinkMe.Infrastructure.Persistance;
+using LinkMe.WebApi.Middlewares;
 using Serilog;
 
 namespace LinkMe.WebApi
@@ -35,7 +37,14 @@ namespace LinkMe.WebApi
 
             builder.Services.AddControllers();
 
+            builder.Services.AddMediatR(c =>
+            {
+                c.RegisterServicesFromAssemblyContaining(typeof(BaseCommandHandler));
+            });
+
             var app = builder.Build();
+
+            app.UseExceptionResultMiddleware();
 
             // Configure the HTTP request pipeline.
 
