@@ -34,7 +34,6 @@ namespace LinkMe.WebApi
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
