@@ -1,6 +1,7 @@
 using LinkMe.Application.Logic.Abstractions;
 using LinkMe.Infrastructure.Persistance;
 using LinkMe.WebApi.Middlewares;
+using LinkMe.Application;
 using Serilog;
 
 namespace LinkMe.WebApi
@@ -41,6 +42,8 @@ namespace LinkMe.WebApi
             {
                 c.RegisterServicesFromAssemblyContaining(typeof(BaseCommandHandler));
             });
+
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 

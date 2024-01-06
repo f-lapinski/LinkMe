@@ -15,8 +15,4 @@
     <ProjectReference Include="..\LinkMe.Domain\LinkMe.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
