@@ -1,3 +1,4 @@
+using LinkMe.Infrastructure.Persistance;
 using Serilog;
 
 namespace LinkMe.WebApi
@@ -25,6 +26,7 @@ namespace LinkMe.WebApi
                 .Enrich.FromLogContext());
 
             // Add services to the container.
+            builder.Services.AddSqlDatabase(builder.Configuration.GetConnectionString("MainDbSql")!);
 
             builder.Services.AddControllers();
 

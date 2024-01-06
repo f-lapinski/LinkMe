@@ -11,11 +11,11 @@ namespace LinkMe.Domain.Entities
     {
         public int AccountId { get; set; }
 
-        public required Account Account { get; set; } //lepiej uzyc = default; ale to sie dowiem pozniej dlaczego
+        public Account Account { get; set; } = default;
 
         public int UserId { get; set; }
 
-        public required User User { get; set; }
+        public User User { get; set; } = default;
 
     }
 }

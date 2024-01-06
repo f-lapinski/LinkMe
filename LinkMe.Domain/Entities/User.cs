@@ -14,5 +14,7 @@ namespace LinkMe.Domain.Entities
         public required string HsahedPassword { get; set; }
 
         public DateTimeOffset RegisterDate { get; set; }
+
+        public ICollection<AccountUser> AccountUsers { get; set; } = new List<AccountUser>();
     }
 }
