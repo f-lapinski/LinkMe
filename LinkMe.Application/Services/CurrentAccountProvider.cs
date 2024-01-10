@@ -1,4 +1,5 @@
-﻿using LinkMe.Application.Exceptions;
+﻿using EFCoreSecondLevelCacheInterceptor;
+using LinkMe.Application.Exceptions;
 using LinkMe.Application.Interfaces;
 using LinkMe.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,7 @@ namespace LinkMe.Application.Services
                     .Where(au => au.UserId == userId.Value)
                     .OrderBy(au => au.UserId)
                     .Select(au => (int?)au.UserId)
+                    .Cacheable()
                     .FirstOrDefaultAsync();
             }
 
@@ -43,7 +45,7 @@ namespace LinkMe.Application.Services
                 throw new UnauthorizedAccessException();
             }
 
-            var account = await _applicationDbContext.Accounts.FirstOrDefaultAsync(a => a.Id == accountId.Value);
+            var account = await _applicationDbContext.Accounts.Cacheable().FirstOrDefaultAsync(a => a.Id == accountId.Value);
             if (account == null)
             {
                 throw new ErrorException("AccountDoesNotExist");
