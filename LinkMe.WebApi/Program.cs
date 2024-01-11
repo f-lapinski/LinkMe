@@ -4,6 +4,7 @@ using LinkMe.WebApi.Middlewares;
 using LinkMe.Application;
 using Serilog;
 using LinkMe.Infrastructure.Auth;
+using LinkMe.WebApi.Application.Auth;
 
 namespace LinkMe.WebApi
 {
@@ -35,10 +36,12 @@ namespace LinkMe.WebApi
                 .Enrich.FromLogContext());
 
             // Add services to the container.
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddDatabaseCache();
             builder.Services.AddSqlDatabase(builder.Configuration.GetConnectionString("MainDbSql")!);
             builder.Services.AddControllers();
             builder.Services.AddJwtAuth(builder.Configuration);
+            builder.Services.AddJwtAuthenticationDataProvider(builder.Configuration);
 
             builder.Services.AddMediatR(c =>
             {
