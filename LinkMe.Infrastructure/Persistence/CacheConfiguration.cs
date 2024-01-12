@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkMe.Infrastructure.Persistance
+namespace LinkMe.Infrastructure.Persistence
 {
     public static class CacheConfiguration
     {
@@ -15,7 +15,7 @@ namespace LinkMe.Infrastructure.Persistance
             services.AddEFSecondLevelCache(options =>
                 options.UseMemoryCacheProvider(CacheExpirationMode.Absolute, TimeSpan.FromMinutes(5)).DisableLogging(false).UseCacheKeyPrefix("EF_")
             );
-            
+
             return services;
         }
     }

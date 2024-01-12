@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkMe.Infrastructure.Persistance.Configurations
+namespace LinkMe.Infrastructure.Persistence.Configurations
 {
     public class AccountUserConfiguration : IEntityTypeConfiguration<AccountUser>
     {

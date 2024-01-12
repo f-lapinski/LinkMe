@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkMe.Infrastructure.Persistance
+namespace LinkMe.Infrastructure.Persistence
 {
     public class MainDbContext : DbContext, IApplicationDbContext
     {
         public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
         {
-            
+
         }
         public DbSet<User> Users { get; set; }
 

@@ -1,10 +1,10 @@
 using LinkMe.Application.Logic.Abstractions;
-using LinkMe.Infrastructure.Persistance;
 using LinkMe.WebApi.Middlewares;
 using LinkMe.Application;
 using Serilog;
 using LinkMe.Infrastructure.Auth;
 using LinkMe.WebApi.Application.Auth;
+using LinkMe.Infrastructure.Persistence;
 
 namespace LinkMe.WebApi
 {
