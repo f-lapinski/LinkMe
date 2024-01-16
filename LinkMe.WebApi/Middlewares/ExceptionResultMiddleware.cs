@@ -24,10 +24,15 @@ namespace LinkMe.WebApi.Middlewares
                 httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 await httpContext.Response.WriteAsJsonAsync(new ErrorResponse { Error = e.Error });
             }
-            catch (UnauthorizedException eu)
+            catch (ValidationException ve)
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                await httpContext.Response.WriteAsJsonAsync(new ValidationErrorResponse(ve));
+            }
+            catch (UnauthorizedException ue)
             {
                 httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                await httpContext.Response.WriteAsJsonAsync(new UnauthorizedResponse { Reason = eu.Message ?? "Unauthorized" });
+                await httpContext.Response.WriteAsJsonAsync(new UnauthorizedResponse { Reason = ue.Message ?? "Unauthorized" });
             }
             catch (Exception e)
             {

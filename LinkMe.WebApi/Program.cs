@@ -64,6 +64,7 @@ namespace LinkMe.WebApi
             });
 
             builder.Services.AddApplicationServices();
+            builder.Services.AddValidators();
 
             var app = builder.Build();
 

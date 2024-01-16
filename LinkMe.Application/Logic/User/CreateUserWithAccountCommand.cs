@@ -1,4 +1,5 @@
-﻿using LinkMe.Application.Exceptions;
+﻿using FluentValidation;
+using LinkMe.Application.Exceptions;
 using LinkMe.Application.Interfaces;
 using LinkMe.Application.Logic.Abstractions;
 using MediatR;
@@ -77,6 +78,20 @@ namespace LinkMe.Application.Logic.User
                 { 
                     UserId = user.Id,
                 };
+            }
+        }
+
+        public class Validator : AbstractValidator<Request>
+        {
+            public Validator()
+            {
+                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Email).EmailAddress();
+                RuleFor(x => x.Email).MaximumLength(100);
+
+                RuleFor(x => x.Password).NotEmpty();
+                RuleFor(x => x.Password).MaximumLength(50);
+
             }
         }
     }
