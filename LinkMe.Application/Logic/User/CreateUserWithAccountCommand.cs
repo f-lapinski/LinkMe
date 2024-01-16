@@ -48,10 +48,10 @@ namespace LinkMe.Application.Logic.User
                 {
                     RegisterDate = utcNow,
                     Email = request.Email,
-                    HsahedPassword = ""
+                    HashedPassword = ""
                 };
 
-                user.HsahedPassword = _passwordManager.HashPassword(request.Password);
+                user.HashedPassword = _passwordManager.HashPassword(request.Password);
 
                 _applicationDbContext.Users.Add(user);
 

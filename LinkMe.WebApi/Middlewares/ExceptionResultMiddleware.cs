@@ -13,7 +13,7 @@ namespace LinkMe.WebApi.Middlewares
             _next = next;
         }
 
-        public async void Invoke(HttpContext httpContext, ILogger<ExceptionResultMiddleware> logger) 
+        public async Task Invoke(HttpContext httpContext, ILogger<ExceptionResultMiddleware> logger) 
         {
             try
             {

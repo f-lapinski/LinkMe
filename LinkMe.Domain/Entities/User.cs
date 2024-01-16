@@ -11,7 +11,7 @@ namespace LinkMe.Domain.Entities
     {
         public required string Email { get; set; }
 
-        public required string HsahedPassword { get; set; }
+        public required string HashedPassword { get; set; }
 
         public DateTimeOffset RegisterDate { get; set; }
 

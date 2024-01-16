@@ -1,4 +1,5 @@
 ﻿using LinkMe.Application.Interfaces;
+using LinkMe.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace LinkMe.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ICurrentAccountProvider, ICurrentAccountProvider>();
+            services.AddScoped<ICurrentAccountProvider, CurrentAccountProvider>();
 
             return services;
         }

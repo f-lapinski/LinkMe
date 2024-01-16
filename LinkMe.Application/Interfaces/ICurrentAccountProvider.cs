@@ -9,8 +9,10 @@ namespace LinkMe.Application.Interfaces
 {
     public interface ICurrentAccountProvider
     {
+        Task<int?> GetAccountId();
+
         Task<Account> GetAuthenticatedAccount();
 
-        Task<int?> GetAccountId();
+        
     }
 }
