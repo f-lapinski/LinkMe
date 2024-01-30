@@ -22,8 +22,8 @@ namespace LinkMe.WebApi
                 .CreateBootstrapLogger();
 
             var builder = WebApplication.CreateBuilder(args);
-            
-            if (builder.Environment.IsDevelopment()) 
+
+            if (builder.Environment.IsDevelopment())
             {
                 builder.Configuration.AddJsonFile("appsettings.Development.local.json");
             }
@@ -66,6 +66,8 @@ namespace LinkMe.WebApi
             builder.Services.AddApplicationServices();
             builder.Services.AddValidators();
 
+            builder.Services.AddCors();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -73,6 +75,14 @@ namespace LinkMe.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(builder => builder
+                .WithOrigins(app.Configuration.GetValue<string>("WebAppBaseUrl") ?? "")
+                .WithOrigins(app.Configuration.GetSection("AdditionalCorsOrigins").Get<string[]>() ?? new string[0])
+                .WithOrigins((Environment.GetEnvironmentVariable("AdditionalCorsOrigins") ?? "").Split(',').Where(h => !string.IsNullOrEmpty(h)).Select(h => h.Trim()).ToArray())
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .AllowAnyMethod());
 
             app.UseExceptionResultMiddleware();
 

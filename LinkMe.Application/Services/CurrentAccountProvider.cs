@@ -29,7 +29,7 @@ namespace LinkMe.Application.Services
                 return await _applicationDbContext.AccountUsers
                     .Where(au => au.UserId == userId.Value)
                     .OrderBy(au => au.UserId)
-                    .Select(au => (int?)au.UserId)
+                    .Select(au => (int?)au.AccountId)
                     .Cacheable()
                     .FirstOrDefaultAsync();
             }
@@ -40,8 +40,8 @@ namespace LinkMe.Application.Services
         public async Task<Account> GetAuthenticatedAccount()
         {
             var accountId = await GetAccountId();
-            if (accountId == null) 
-            { 
+            if (accountId == null)
+            {
                 throw new UnauthorizedAccessException();
             }
 

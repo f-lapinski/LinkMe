@@ -53,6 +53,13 @@ namespace LinkMe.WebApi.Controllers
             return Ok(logoutResult);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetLoggedInUser()
+        {
+            var data = await _mediator.Send(new CurrentAccountQuery.Request() { });
+            return Ok(data);
+        }
+
         private void SetTokenCookie(string token)
         {
             var cookieOption = new CookieOptions()
@@ -77,7 +84,7 @@ namespace LinkMe.WebApi.Controllers
             Response.Cookies.Append(CookieSettings.CookieName, token, cookieOption);
         }
 
-        public void DeleteTokenCookie()
+        private void DeleteTokenCookie()
         {
             Response.Cookies.Delete(CookieSettings.CookieName, new CookieOptions()
             {
