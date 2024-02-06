@@ -4,6 +4,7 @@ using LinkMe.Infrastructure.Auth;
 using LinkMe.WebApi.Application.Auth;
 using LinkMe.WebApi.Application.Response;
 using MediatR;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -16,18 +17,22 @@ namespace LinkMe.WebApi.Controllers
     {
         private readonly CookieSettings? _cookieSettings;
         private readonly JwtManager _jwtManager;
+        private readonly IAntiforgery _antiforgery;
 
         public UserController(
             ILogger<UserController> logger,
             IOptions<CookieSettings> cookieSettings,
             JwtManager jwtManager,
+            IAntiforgery antiforgery,
             IMediator mediator) : base(logger, mediator)
         {
             _cookieSettings = cookieSettings != null ? cookieSettings.Value : null;
             _jwtManager = jwtManager;
+            _antiforgery = antiforgery;
         }
 
         [HttpPost]
+        [IgnoreAntiforgeryToken]
         public async Task<ActionResult> CreateUserWithAccount([FromBody] CreateUserWithAccountCommand.Request model)
         {
             var createAccountResult = await _mediator.Send(model);
@@ -58,6 +63,13 @@ namespace LinkMe.WebApi.Controllers
         {
             var data = await _mediator.Send(new CurrentAccountQuery.Request() { });
             return Ok(data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AntiforgeryToken()
+        {
+            var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+            return Ok(tokens.RequestToken);
         }
 
         private void SetTokenCookie(string token)

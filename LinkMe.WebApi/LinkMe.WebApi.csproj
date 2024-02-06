@@ -19,4 +19,6 @@
     <ProjectReference Include="..\LinkMe.Infrastructure\LinkMe.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1local_1json__JsonSchema="https://json.schemastore.org/azure-iot-edge-deployment-2.0.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

@@ -5,6 +5,7 @@ using Serilog;
 using LinkMe.Infrastructure.Auth;
 using LinkMe.WebApi.Application.Auth;
 using LinkMe.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LinkMe.WebApi
 {
@@ -39,7 +40,13 @@ namespace LinkMe.WebApi
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDatabaseCache();
             builder.Services.AddSqlDatabase(builder.Configuration.GetConnectionString("MainDbSql")!);
-            builder.Services.AddControllers();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                if (!builder.Environment.IsDevelopment())
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                }
+            });
             builder.Services.AddJwtAuth(builder.Configuration);
             builder.Services.AddJwtAuthenticationDataProvider(builder.Configuration);
             builder.Services.AddPasswordManager();
@@ -61,6 +68,11 @@ namespace LinkMe.WebApi
 
                     return name;
                 });
+            });
+
+            builder.Services.AddAntiforgery(o =>
+            {
+                o.HeaderName = "X-XSRF-TOKEN";
             });
 
             builder.Services.AddApplicationServices();
