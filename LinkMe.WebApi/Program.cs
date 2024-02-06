@@ -6,6 +6,7 @@ using LinkMe.Infrastructure.Auth;
 using LinkMe.WebApi.Application.Auth;
 using LinkMe.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace LinkMe.WebApi
 {
@@ -46,7 +47,9 @@ namespace LinkMe.WebApi
                 {
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 }
-            });
+            }).AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
             builder.Services.AddJwtAuth(builder.Configuration);
             builder.Services.AddJwtAuthenticationDataProvider(builder.Configuration);
             builder.Services.AddPasswordManager();
